@@ -30,7 +30,7 @@ define(['N/search', 'N/ui/serverWidget','N/email'],
                 let form = serverWidget.createForm({
                         title: "Sending Onam Offers",
                     });
-                form.clientScriptFieldId = 522;
+                // form.clientScriptFieldId = 522;
                let subsidiary = form.addField({
                     id: "custpage_subsidiary",
                     label: "Subsidiary",
@@ -74,8 +74,8 @@ define(['N/search', 'N/ui/serverWidget','N/email'],
                         label: "Send Email"
                     });
 
-                    let custName = scriptContext.request.parameters.custpage_customername||'';
-                    let subsidName  = scriptContext.request.parameters.custpage_subsidiary||'';
+                    let custName = scriptContext.request.parameters.custpage_customername || '';
+                    let subsidName  = scriptContext.request.parameters.custpage_subsidiary || '';
                     subsidiary.defaultValue = subsidName;
                     customerName.defaultValue = custName;
 
@@ -112,17 +112,17 @@ define(['N/search', 'N/ui/serverWidget','N/email'],
                                 email:result.getValue(invObj.columns[1]),
                                 amt:result.getValue(invObj.columns[2])
                             }
-                            log.debug(details);
+                           
+                            log.debug(details.name);
                             return true;
                         });
                         
                      
-                        for(let i=0;i<details.length>0;i++){
-                            
+                        for(let i=0; i<details.length; i++){
                                 subList.setSublistValue({
                                     id: "custpage_customer",
                                     line: i,
-                                    value:details.name
+                                    value: results[i].getValue({ name: 'entity', summary:'GROUP'})
                                       });
                                 subList.setSublistValue({
                                     id: "custpage_email",
